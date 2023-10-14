@@ -1,10 +1,7 @@
 package org.Lab4;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -19,14 +16,19 @@ public class HTMLController {
         this.buddyInfoRepository = buddyInfoRepository;
     }
 
+    @RequestMapping("/")
+    public @ResponseBody String greeting() {
+        return "Hello, World";
+    }
+
     @GetMapping("/getAllBooks")
     public String getAddresses(Model m){
         m.addAttribute("Addresses", addressBookRepository.findAll().toString());
         return "allAddresses";
     }
 
-    @GetMapping("/getaddressbook")
-    public String getAddress(@RequestParam Integer id,  Model model){
+    @GetMapping("/getaddressbook/{id}")
+    public String getAddress(@PathVariable(value = "id") Integer id, Model model){
         Optional<AddressBook> a1 = addressBookRepository.findById(id);
         if (a1.isEmpty()) return null;
         model.addAttribute("AddressId", id);
@@ -47,7 +49,9 @@ public class HTMLController {
         Optional<AddressBook> ab = addressBookRepository.findById(id);
         if(ab.isEmpty()) return null;
         AddressBook temp = ab.get();
-        temp.addBuddy(new BuddyInfo(name,phone));
+        BuddyInfo b = new BuddyInfo(name,phone);
+        temp.addBuddy(b);
+        buddyInfoRepository.save(b);
         addressBookRepository.save(temp);
         m.addAttribute("AddressId", id);
         m.addAttribute("BuddyList", temp.getBuds());
