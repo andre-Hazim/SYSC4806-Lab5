@@ -1,17 +1,23 @@
 package org.Lab4;
 
+import org.aspectj.bridge.MessageUtil;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+
 
 
 @SpringBootApplication
 public class Lab4Application {
 
+	private MessageUtil log;
+
 	public static void main(String[] args) {
 		SpringApplication.run(Lab4Application.class, args);
 	}
 
-	/*private static final Logger log = LoggerFactory.getLogger(Sysc4806Lab4Application.class);
 
 	@Bean
 	public CommandLineRunner demo(AddressBookRepository abrepo, BuddyInfoRepository budrepo) {
@@ -46,11 +52,11 @@ public class Lab4Application {
 			if (result != null){
 				log.info("Buddies found in the Address Book");
 				log.info("-------------------------------");
-				log.info(result.getBuddyInfoAsString());
+				log.info(result.toString());
 
 			}
 
 		};
-	}*/
+	}
 
 }

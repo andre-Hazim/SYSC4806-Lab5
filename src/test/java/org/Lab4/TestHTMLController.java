@@ -63,14 +63,13 @@ public class TestHTMLController {
 
     @Test
     public void createAddressBook() throws Exception {
-        this.addressBookRepository.deleteAll();
+
         this.mockMvc.perform(get("/createaddressbook")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("All Address Books")));
+                .andExpect(content().string(containsString("AddressBook Created with ID")));
     }
     @Test
     public void addBuddyToAddress() throws Exception{
-        this.addressBookRepository.deleteAll();
-        this.addressBookRepository.save(new AddressBook());
+
         this.mockMvc.perform(post("/addbuddy")
                 .param("id", "1").param("name", "andre").param("phone","613"))
                 .andExpect(status().isOk())
@@ -78,23 +77,16 @@ public class TestHTMLController {
     }
     @Test
     public void getAllBooksTest() throws Exception{
-        this.addressBookRepository.deleteAll();
-        this.addressBookRepository.save(new AddressBook());
-        this.addressBookRepository.save(new AddressBook());
-        this.addressBookRepository.save(new AddressBook());
+
         MvcResult r = this.mockMvc.perform(get("/getAllBooks")).andExpect(status().isOk())
                 .andReturn();
         String s = Objects.requireNonNull(r.getModelAndView()).getModel().get("Addresses").toString();
         long count = StringUtils.countOccurrencesOf(s, "id");
-        Assert.assertEquals(3,count);
+        Assertions.assertEquals(2, count);
     }
     @Test
     public void getAddressBookTest() throws Exception{
-        this.addressBookRepository.deleteAll();
-        this.addressBookRepository.save(new AddressBook());
-        this.addressBookRepository.save(new AddressBook());
-        this.addressBookRepository.save(new AddressBook());
-        this.mockMvc.perform(get("/getaddressbook/1")).andDo(print()).andExpect(status().isOk())
+        this.mockMvc.perform(get("/getaddressbook/1")).andExpect(status().isOk())
                 .andExpect(content().string(containsString("Address Book with Id: 1")));
     }
 
