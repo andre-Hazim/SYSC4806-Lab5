@@ -63,11 +63,13 @@ public class TestHTMLController {
 
     @Test
     public void createAddressBook() throws Exception {
+        this.addressBookRepository.deleteAll();
         this.mockMvc.perform(get("/createaddressbook")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("All Address Books")));
     }
     @Test
     public void addBuddyToAddress() throws Exception{
+        this.addressBookRepository.deleteAll();
         this.addressBookRepository.save(new AddressBook());
         this.mockMvc.perform(post("/addbuddy")
                 .param("id", "1").param("name", "andre").param("phone","613"))
@@ -76,6 +78,7 @@ public class TestHTMLController {
     }
     @Test
     public void getAllBooksTest() throws Exception{
+        this.addressBookRepository.deleteAll();
         this.addressBookRepository.save(new AddressBook());
         this.addressBookRepository.save(new AddressBook());
         this.addressBookRepository.save(new AddressBook());
@@ -87,6 +90,7 @@ public class TestHTMLController {
     }
     @Test
     public void getAddressBookTest() throws Exception{
+        this.addressBookRepository.deleteAll();
         this.addressBookRepository.save(new AddressBook());
         this.addressBookRepository.save(new AddressBook());
         this.addressBookRepository.save(new AddressBook());
