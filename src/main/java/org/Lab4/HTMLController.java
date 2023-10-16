@@ -45,11 +45,11 @@ public class HTMLController {
     }
 
     @PostMapping("/addbuddy")
-    public String addBuddy(@RequestParam Integer id, @RequestParam String name, @RequestParam String phone, Model m){
+    public String addBuddy(@RequestParam Integer id, @RequestParam String name, @RequestParam String phone, @RequestParam String address, Model m){
         Optional<AddressBook> ab = addressBookRepository.findById(id);
         if(ab.isEmpty()) return null;
         AddressBook temp = ab.get();
-        BuddyInfo b = new BuddyInfo(name,phone);
+        BuddyInfo b = new BuddyInfo(name,phone,address);
         temp.addBuddy(b);
         buddyInfoRepository.save(b);
         addressBookRepository.save(temp);

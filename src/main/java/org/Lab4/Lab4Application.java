@@ -23,9 +23,9 @@ public class Lab4Application {
 	public CommandLineRunner demo(AddressBookRepository abrepo, BuddyInfoRepository budrepo) {
 		return (args) -> {
 			// save a few buddies
-			BuddyInfo b1 = new BuddyInfo("Jack F", "613-444-3323");
-			BuddyInfo b2 = new BuddyInfo("Donald T", "613-233-4323");
-			BuddyInfo b3 = new BuddyInfo("Michelle O", "613-645-9342");
+			BuddyInfo b1 = new BuddyInfo("Jack F", "613-444-3323", "Ottawa");
+			BuddyInfo b2 = new BuddyInfo("Donald T", "613-233-4323", "Gatinau");
+			BuddyInfo b3 = new BuddyInfo("Michelle O", "613-645-9342", "Nepean");
 			budrepo.save(b1);
 			budrepo.save(b2);
 			budrepo.save(b3);
@@ -41,7 +41,9 @@ public class Lab4Application {
 
 			//add to addressBook and fetch
 			AddressBook ab = new AddressBook();
+			AddressBook ab2 = new AddressBook();
 			abrepo.save(ab);
+			abrepo.save(ab2);
 
 			ab.addBuddy(b1);
 			ab.addBuddy(b2);

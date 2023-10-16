@@ -8,6 +8,11 @@ public class BuddyInfo {
     @GeneratedValue
     private Integer id = null;
     private String name;
+
+
+
+    private String address;
+
     private String number;
 
 
@@ -16,9 +21,10 @@ public class BuddyInfo {
      * @param name - name of the Buddy
      * @param number - number of the Buddy
      */
-    public BuddyInfo(String name, String number) {
+    public BuddyInfo(String name, String number, String address) {
         this.name = name;
         this.number = number;
+        this.address = address;
     }
 
     /**
@@ -58,6 +64,13 @@ public class BuddyInfo {
     public void setNumber (String budNumber){
         this.number = budNumber;
     }
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     /**
      * Override method to help print BuddyInfo objects
@@ -65,6 +78,6 @@ public class BuddyInfo {
      */
     @Override
     public String toString() {
-        return "Id: "+ id + "Name: " + name + "  Number: " + number;
+        return "Id: "+ id + " Name: " + name + "  Number: " + number + "Address: " + address;
     }
 }

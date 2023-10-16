@@ -41,11 +41,11 @@ public class RestController {
     }
 
     @PostMapping("/addbuddyrest")
-    public AddressRecord addBuddy(@RequestParam Integer id, @RequestParam String name, @RequestParam String phone, Model m){
+    public AddressRecord addBuddy(@RequestParam Integer id, @RequestParam String name, @RequestParam String phone, @RequestParam String address, Model m){
         Optional<AddressBook> ab = addressBookRepository.findById(id);
         if(ab.isEmpty()) return null;
         AddressBook temp = ab.get();
-        temp.addBuddy(new BuddyInfo(name,phone));
+        temp.addBuddy(new BuddyInfo(name,phone,address));
         addressBookRepository.save(temp);
         m.addAttribute("AddressId", id);
         m.addAttribute("BuddyList", temp.getBuds());

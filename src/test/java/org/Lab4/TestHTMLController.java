@@ -9,8 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -22,6 +21,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -70,11 +70,26 @@ public class TestHTMLController {
     @Test
     public void addBuddyToAddress() throws Exception{
 
-        this.mockMvc.perform(post("/addbuddy")
-                .param("id", "1").param("name", "andre").param("phone","613"))
+        MvcResult r =  this.mockMvc.perform(post("/addbuddy")
+                .param("id", "2").param("name", "andre").param("phone","613").param("address", "Ottawa"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("andre")));
+                .andReturn();
+        String s = r.getModelAndView().getModel().get("BuddyList").toString();
+        Assertions.assertTrue(s.contains("andre"));
+        Assertions.assertTrue(s.contains("613"));
+        Assertions.assertTrue(s.contains("Ottawa"));
+
     }
+    @Test
+    public void removeBuddyTest() throws Exception{
+        MvcResult r =  this.mockMvc.perform(delete("/deletebuddy")
+                        .param("abId", "1").param("budId", "1"))
+                .andExpect(status().isOk())
+                .andReturn();
+        String s = r.getModelAndView().getModel().get("BuddyList").toString();
+        Assertions.assertFalse(s.contains("Jack F"));
+    }
+
     @Test
     public void getAllBooksTest() throws Exception{
 
@@ -86,8 +101,21 @@ public class TestHTMLController {
     }
     @Test
     public void getAddressBookTest() throws Exception{
-        this.mockMvc.perform(get("/getaddressbook/1")).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Address Book with Id: 1")));
+        MvcResult r =  this.mockMvc.perform(get("/getaddressbook/2")).andExpect(status().isOk())
+                .andReturn();
+        String s = Objects.requireNonNull(r.getModelAndView().getModel().get("AddressId").toString());
+        System.out.println(s);
+        Assert.assertTrue(s.contains("2"));
+
+    }
+    @Test
+    public void removeBookTest() throws Exception{
+        MvcResult r =  this.mockMvc.perform(delete("/deletebook")
+                        .param("id", "1"))
+                .andExpect(status().isOk())
+                .andReturn();
+        String s = r.getModelAndView().getModel().get("Addresses").toString();
+        Assertions.assertFalse(s.contains("1"));
     }
 
 }
