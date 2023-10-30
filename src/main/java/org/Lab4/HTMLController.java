@@ -16,9 +16,13 @@ public class HTMLController {
         this.buddyInfoRepository = buddyInfoRepository;
     }
 
-    @RequestMapping("/")
-    public @ResponseBody String greeting() {
-        return "Hello, World";
+    @GetMapping("/startpage")
+    public String greeting() {
+        return "homepage";
+    }
+    @GetMapping("/js")
+    public String js() {
+        return "index";
     }
 
     @GetMapping("/getAllBooks")
@@ -27,8 +31,8 @@ public class HTMLController {
         return "allAddresses";
     }
 
-    @GetMapping("/getaddressbook/{id}")
-    public String getAddress(@PathVariable(value = "id") Integer id, Model model){
+    @GetMapping("/getaddressbook")
+    public String getAddress(@RequestParam Integer id, Model model){
         Optional<AddressBook> a1 = addressBookRepository.findById(id);
         if (a1.isEmpty()) return null;
         model.addAttribute("AddressId", id);

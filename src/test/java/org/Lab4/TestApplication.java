@@ -10,15 +10,15 @@ import org.springframework.context.annotation.Bean;
 
 
 @SpringBootApplication
-public class Lab4Application {
+public class TestApplication {
 
-	private MessageUtil log;
+    private MessageUtil log;
 
-	public static void main(String[] args) {
-		SpringApplication.run(Lab4Application.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Lab4Application.class, args);
+    }
 
-/*
+
 	@Bean
 	public CommandLineRunner demo(AddressBookRepository abrepo, BuddyInfoRepository budrepo) {
 		return (args) -> {
@@ -60,5 +60,5 @@ public class Lab4Application {
 
 		};
 	}
-*/
+
 }

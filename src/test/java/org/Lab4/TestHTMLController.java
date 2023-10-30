@@ -24,7 +24,7 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = TestApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class TestHTMLController {
 
@@ -46,20 +46,8 @@ public class TestHTMLController {
     public void contextLoads() throws Exception{
         assertThat(controller).isNotNull();
     }
-    @Test
-    public void greetingShouldReturnDefaultMessage() throws Exception {
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/",
-                String.class)).contains("Hello, World");
-    }
-    @Test
-    /**
-     * In this test, the full Spring application context is started but without the server.
-     * We can narrow the tests to only the web layer by using @WebMvcTest
-     */
-    public void shouldReturnDefaultMessage() throws Exception {
-        this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello, World")));
-    }
+
+
 
     @Test
     public void createAddressBook() throws Exception {
@@ -101,7 +89,7 @@ public class TestHTMLController {
     }
     @Test
     public void getAddressBookTest() throws Exception{
-        MvcResult r =  this.mockMvc.perform(get("/getaddressbook/2")).andExpect(status().isOk())
+        MvcResult r =  this.mockMvc.perform(get("/getaddressbook").param("id", "2")).andExpect(status().isOk())
                 .andReturn();
         String s = Objects.requireNonNull(r.getModelAndView().getModel().get("AddressId").toString());
         System.out.println(s);

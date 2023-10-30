@@ -6,5 +6,17 @@
 </head>
 <body>
 <p th:text="'AddressBook Created with ID : ' + ${AddressId} "></p>
+<h1>Create AddressBook</h1>
+<form action="#" th:action="@{/createaddressbook}" method="get">
+  <p><input type="submit" value="Create Another Address" /></p>
+</form>
+<h1>Create Buddy</h1>
+<form action="#" th:action="@{/addbuddy}"  method="post">
+  <p>AddressBook Id: <input type="number" th:name="id" /></p>
+  <p>Name: <input type="text" th:name="name" /></p>
+  <p>Phone: <input type="text" th:name="phone" /></p>
+  <p>Address: <input type="text" th:name="address" /></p>
+  <p><input type="submit" value="Create Buddy" /></p>
+</form>
 </body>
 </html>

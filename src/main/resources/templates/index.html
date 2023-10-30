@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello jQuery</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+
+</head>
+
+<body>
+<button id="createBook">Create Address Book</button>
+<button id="getAllBooks">Get All Books</button>
+
+<p id="test"></p>
+<p id="buddies"></p>
+<h1>Find Book</h1>
+<form id="bookForm" >
+    <p>AddressBook Id: <input id="bookid" type="number" th:name="id" /></p>
+    <p><input id="bookInput" type="submit" value="Get Book" /></p>
+</form>
+<p id="bookById"></p>
+<h1>Create Buddy</h1>
+<form id="buddyForm" >
+    <p>AddressBook Id: <input id="id" type="number" th:name="id" /></p>
+    <p>Name: <input id="name" type="text"  /></p>
+    <p>Phone: <input id="phone" type="text" th:name="phone" /></p>
+    <p>Address: <input id="address" type="text" th:name="address" /></p>
+    <p><input id="buddyInput" type="submit" value="Create Buddy" /></p>
+</form>
+<p id="addbud"></p>
+</body>
+</html>

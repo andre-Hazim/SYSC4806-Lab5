@@ -1,0 +1,25 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4-4.dtd">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Create Address Book</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Homepage</h1>
+<form action="#" th:action="@{/createaddressbook}"method="get">
+<p><input type="submit" value="CreateAddressBook" /></p>
+</form>
+<h1>View all books</h1>
+<form action="#" th:action="@{/getAllBooks}"method="get">
+    <p><input type="submit" value="View all books" /></p>
+</form>
+<h1>View book by id</h1>
+<form action="#" th:action="@{/getaddressbook}" method="get">
+    <p>AddressBook Id: <input type="number" th:name="id" /></p>
+    <p><input type="submit" value="View all books" /></p>
+</form>
+
+
+
+</body>
+</html>

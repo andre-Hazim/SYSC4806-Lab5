@@ -16,7 +16,6 @@ public class RestController {
         this.addressBookRepository = addressBookRepository;
         this.buddyInfoRepository = buddyInfoRepository;
     }
-
     @GetMapping("/getAllBooksrest")
     public AllAddressBooksRecord getAddresses(Model m){
         m.addAttribute("Addresses", addressBookRepository.findAll().toString());
